@@ -7,14 +7,8 @@ WifiConfCaptivePortal::WifiConfCaptivePortal(
     : dnsServer{DNSServer()},
       webServer{ESP8266WebServer(port)},
       apIP{IPAddress(192, 168, 1, 1)},
-      netMsk{IPAddress(255, 255, 255, 0)},
-      captiveTemplate{""}
+      netMsk{IPAddress(255, 255, 255, 0)}
 {
-}
-
-void WifiConfCaptivePortal::setTemplate(String html)
-{
-  captiveTemplate = html;
 }
 
 void WifiConfCaptivePortal::start()

@@ -13,7 +13,6 @@ void setup()
   Serial.println();
   Serial.println();
   Serial.println("Setup ini");
-  captivePortal.setTemplate("new template");
   captivePortal.start();
   Serial.println("Setup END");
 }

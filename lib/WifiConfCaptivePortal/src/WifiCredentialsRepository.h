@@ -7,8 +7,8 @@
 class WifiCredentialsRepository
 {
   public:
-    virtual WifiCredentials read(std::string ssid) = 0;
-    virtual bool save(WifiCredentials credentials) = 0;
+    virtual WifiCredentials read() = 0;
+    virtual void save(WifiCredentials credentials) = 0;
     virtual ~WifiCredentialsRepository() {}
 };
 

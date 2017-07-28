@@ -4,17 +4,36 @@
 EEPROMWifiCredentialsRepository::EEPROMWifiCredentialsRepository()
 {
 }
-WifiCredentials EEPROMWifiCredentialsRepository::read(std::string ssid)
+WifiCredentials EEPROMWifiCredentialsRepository::read()
 {
-    //TODO: read credentials from EEPROM;
+    EEPROM.begin(512);
     WifiCredentials credentials;
-    credentials.ssid = "ssid";
-    credentials.password = "password";
+    EEPROM.get(0, credentials.ssid);
+    EEPROM.get(0 + sizeof(credentials.ssid), credentials.password);
+    char ok[2 + 1];
+    EEPROM.get(0 + sizeof(credentials.ssid) + sizeof(credentials.password), ok);
+    EEPROM.end();
+    if (std::string(ok) != std::string("OK"))
+    {
+        credentials.ssid[0] = 0;
+        credentials.password[0] = 0;
+    }
+
+    Serial.println("Recovered credentials:");
+    Serial.println(credentials.ssid);
+    Serial.println(strlen(credentials.password) > 0 ? "********" : "<no password>");
     return credentials;
 }
 
-bool EEPROMWifiCredentialsRepository::save(WifiCredentials credentials)
+void EEPROMWifiCredentialsRepository::save(WifiCredentials credentials)
 {
-    return false;
+    EEPROM.begin(512);
+    EEPROM.put(0, credentials.ssid);
+    EEPROM.put(0 + sizeof(credentials.ssid), credentials.password);
+    char ok[2 + 1] = "OK";
+    EEPROM.put(0 + sizeof(credentials.ssid) + sizeof(credentials.password), ok);
+    EEPROM.commit();
+    EEPROM.end();
 }
+
 EEPROMWifiCredentialsRepository::~EEPROMWifiCredentialsRepository() {}

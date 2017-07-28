@@ -4,8 +4,8 @@
 #include <string>
 struct WifiCredentials
 {
-    std::string ssid;
-    std::string password;
+    char* ssid;
+    char* password;
 };
 
 #endif

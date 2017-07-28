@@ -13,7 +13,6 @@ private:
   IPAddress netMsk;
   ESP8266WebServer webServer;
   DNSServer dnsServer;
-  String captiveTemplate;
 
   void handleWifi()
   {
@@ -61,7 +60,6 @@ private:
 public:
   WifiConfCaptivePortal(int port, WifiCredentialsRepository &wifiCredentialsRepository);
   void start();
-  void setTemplate(String html);
   void handleRequest();
   ~WifiConfCaptivePortal();
 };
