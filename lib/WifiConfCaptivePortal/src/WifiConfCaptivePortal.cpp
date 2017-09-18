@@ -18,6 +18,9 @@ void WifiConfCaptivePortal::start()
   WiFi.softAP("CaptivePortal");
 
   dnsServer.start(DNS_PORT, "*", apIP);
+  webServer.on("/wifisave", [this]() {
+    handleSaveWifi();
+  });
   webServer.onNotFound([this]() {
     handleWifi();
   });
